@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MetaData xmlns="http://www.osgi.org/xmlns/metatype/v1.2.0"
+	localization="en_us">
+	<OCD id="org.eclipse.kura.example.IoTGateway.IoTGateway"
+		name="IoTGateway"
+		description="This is the configuration for the IoTGateway Kura bundle">
+		
+		<AD id="mode.test" name="mode.test" 
+		    type="Boolean"
+			cardinality="0" 
+			required="true" 
+			default="true"
+			description="Test mode (if true no msg sent to IoT, only logged)">
+		</AD>	
+		
+		<AD id="mode.source" name="mode.source" 
+		    type="Integer"
+			cardinality="0" 
+			required="true" 
+			default="0"
+			description="Source input mode (0 - message simulated, 1 - message from mqtt CloudService to be configured, 2 - using GPIO library)">
+		   <Option label="0 - Simulated" value="0" />
+		   <Option label="1 - MQTT CloudPublisher" value="1" />
+		   <Option label="2 - GPIO library" value="2" />			
+		</AD>	
+		
+		 <AD id="publish.rate"  
+            name="publish.rate"
+            type="Integer"
+            cardinality="0" 
+            required="true"
+            default="20"
+            min="1" 
+            description="(ONLY FOR SOURCE 0-2) Default message publishing rate in seconds (min 1)."/>
+            
+		<AD id="CloudSubscriber.target"
+            name="CloudSubscriber Target Filter"
+            type="String"
+            cardinality="0"
+            required="false"
+            default="(kura.service.pid=changeme)"
+            description="(ONLY FOR SOURCE 1) Specifies, as an OSGi target filter, the pid of the Cloud Subscriber used to get the messages from the sensor.">
+		</AD>
+		
+		<AD id="CloudPublisher.target"
+            name="CloudPublisher Target Filter"
+            type="String"
+            cardinality="0"
+            required="true"
+            default="(kura.service.pid=changeme)"
+            description="Specifies, as an OSGi target filter, the pid of the Cloud Publisher used to publish messages to the cloud platform.">
+        </AD>
+		
+		<AD id="msg.topic" name="msg.topic" type="String" cardinality="0"
+			required="true" default="command/"
+			description="The MQTT TOPIC we're subscribing for receive command from the application(can contain + for single level wildcard)" />
+		
+		<AD id="msglog.enable" name="msglog.enable" 
+		    type="Boolean"
+			cardinality="0" 
+			required="true" 
+			default="false"
+			description="Enable logging of incoming messages">
+		</AD>
+
+	</OCD>
+
+	<Designate
+		pid="org.eclipse.kura.example.IoTGateway.IoTGateway">
+		<Object
+			ocdref="org.eclipse.kura.example.IoTGateway.IoTGateway" />
+	</Designate>	
+</MetaData>

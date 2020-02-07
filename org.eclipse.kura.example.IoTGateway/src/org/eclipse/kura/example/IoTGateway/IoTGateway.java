@@ -326,7 +326,10 @@ public class IoTGateway implements DataServiceListener, ConfigurableComponent, C
 	       payload.addMetric("value", ((Math.abs(this.random.nextDouble()) % 5)+1)*5+(Math.abs(this.random.nextDouble()) % 10));
     	}else {
     	   payload.addMetric("type", "kura-sensor");
-    	   payload.addMetric("value", Double.parseDouble(dataPayload));
+    	   // check for validity
+    	   double temp = Double.parseDouble(dataPayload);
+    	   if(temp<0)return;
+    	   payload.addMetric("value", temp);
     	}
     	KuraMessage message = new KuraMessage(payload);	
     	handleIncomingMessage(message);

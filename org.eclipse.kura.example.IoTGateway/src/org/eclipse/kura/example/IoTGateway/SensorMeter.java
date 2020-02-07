@@ -39,13 +39,15 @@ public class SensorMeter
 	public String getDistance() {
 		try {
 			if (outputPin_T != null && outputPin_E != null){
+				int a = 0;
+				
 				info("Measuring distance...");
 				
 				outputPin_T.setValue(true);
 				Thread.sleep((long) 0.01);// Delay for 10 microseconds
 				outputPin_T.setValue(false);
 				
-				while(!outputPin_E.getValue()) {} //Wait until the ECHO pin gets HIGH
+				while(!outputPin_E.getValue() && a++<1000) {} //Wait until the ECHO pin gets HIGH
 				long startTime= System.nanoTime(); // Store the surrent time to calculate ECHO pin HIGH time.
 				while(outputPin_E.getValue()){} //Wait until the ECHO pin gets LOW
 				long endTime= System.nanoTime(); // Store the echo pin HIGH end time to calculate ECHO pin HIGH time.
@@ -56,7 +58,7 @@ public class SensorMeter
 				//DecimalFormat formatter = new DecimalFormat("##.00");
 				//info("Distance4: "+formatter.format(((endTime-startTime)*17150))+" cm");
 				
-				return ((((endTime-startTime)/1e3)/2) / 29.1)+"";
+				return (a<1000?((((endTime-startTime)/1e3)/2) / 29.1):-1.0)+"";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

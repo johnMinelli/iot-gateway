@@ -329,6 +329,7 @@ public class IoTGateway implements DataServiceListener, ConfigurableComponent, C
     	   // check for validity
     	   double temp = Double.parseDouble(dataPayload);
     	   if(temp<0)return;
+    	   if(temp>400.0)temp=400.0;    	   
     	   payload.addMetric("value", temp);
     	}
     	KuraMessage message = new KuraMessage(payload);	

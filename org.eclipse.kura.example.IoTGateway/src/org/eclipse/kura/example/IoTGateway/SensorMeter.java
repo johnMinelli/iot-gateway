@@ -13,9 +13,11 @@ public class SensorMeter
 	private static final Logger s_logger = LoggerFactory.getLogger(SensorMeter.class);
 
 	//check image in the resources for info on pin enumeration
-	private int PIN_TRIGGER = 5;//pin 29
-	private int PIN_ECHO = 6;//pin 31
-	
+	//private int PIN_TRIGGER = 5;//pin 29
+	//private int PIN_ECHO = 6;//pin 31
+
+	private int PIN_TRIGGER = 12;//pin 32
+	private int PIN_ECHO = 13;//pin 33
 	
 	private GPIOService _gpioService = null;
 	private KuraGPIOPin outputPin_T;
